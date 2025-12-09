@@ -2,7 +2,10 @@ import { faker } from '@faker-js/faker' // importa a biblioteca faker para gerar
 
 describe('Create Project', () => {
   beforeEach(() => {
-    cy.login()
+
+    cy.api_deleteProjects() //comando customizado para deletar todos os projetos antes de cada cenário
+    cy.login() // comando customizado para fazer login via GUI
+ 
   })
 
   it('successfully', () => {
