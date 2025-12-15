@@ -30,11 +30,31 @@ Cypress.Commands.add('api_getAllProjects', () => {
 Cypress.Commands.add('api_deleteProjects', () => {
 
   //chama primeiro o comando customizado que lista todos os projetos
-  cy.api_getAllProjects().then(res =>
-    res.body.forEach(project => cy.request({ //para cada projeto listado, faz uma requisição para deletar
+  
+  cy.api_getAllProjects().then(res => 
+
+    //para cada projeto listado, faz uma requisição para deletar
+    //usando comando foreach 
+    res.body.forEach(project => cy.request({ 
       method: 'DELETE',
       url: `/api/v4/projects/${project.id}`,
       headers: { Authorization: accessToken },
     }))
   )
+})
+
+
+Cypress.Commands.add('api_createIssue', issue => {
+  cy.api_createProject(issue.project) //primeiro cria o projeto via API, rotina acima
+    .then(response => { //pega a resposta da criação do projeto
+      cy.request({ //depois cria a issue vinculada ao projeto criado
+        method: 'POST',
+        url: `/api/v4/projects/${response.body.id}/issues`, //usa o id do projeto criado na URL
+        body: {
+          title: issue.title,
+          description: issue.description
+        },
+        headers: { Authorization: accessToken },
+      })
+  })
 })
