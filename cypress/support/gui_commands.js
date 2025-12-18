@@ -56,3 +56,16 @@ Cypress.Commands.add('gui_createIssue', issue => {
   cy.get('.qa-issuable-form-description').type(issue.description)
   cy.contains('Submit issue').click()
 })
+
+Cypress.Commands.add('gui_setLabelOnIssue', label => {
+  cy.get('.qa-edit-link-labels').click()
+  cy.contains(label.name).click()
+  cy.get('body').click()
+})
+
+
+//comando customizado para definir um marco (milestone) em uma issue via GUI
+Cypress.Commands.add('gui_setMilestoneOnIssue', milestone => {
+  cy.get('.block.milestone .edit-link').click() //clica no seletor de editar marco (milestone)
+  cy.contains(milestone.title).click()
+})

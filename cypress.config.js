@@ -1,4 +1,4 @@
-const { defineConfig } = require('cypress')
+/*const { defineConfig } = require('cypress')
 
 module.exports = defineConfig({
   e2e: {
@@ -10,5 +10,22 @@ module.exports = defineConfig({
   },
   fixturesFolder: false,
   video: false,
+})*/
+
+
+const { defineConfig } = require('cypress')
+
+module.exports = defineConfig({
+  e2e: {
+    baseUrl: 'http://localhost',
+    env: {
+      hideCredentials: true,
+      requestMode: true,
+    },
+    experimentalRunAllSpecs: true, // executa todos os arquivos de teste em uma única execução do Cypress
+  },
+  fixturesFolder: false,
+  video: false,
 })
+
 
